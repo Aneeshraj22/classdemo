@@ -1,0 +1,24 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ReusableCodeLibrary
+{
+      public class Class7
+    {
+        public static void copy()
+        {
+            string str1;
+            string str2;
+
+            Console.Write("Enter string : ");
+            str1 = Console.ReadLine();
+            str2 = String.Copy(str1);
+
+            Console.WriteLine("First string="+str1);
+            Console.WriteLine("sec String =" + str2);
+        }
+    }
+}
