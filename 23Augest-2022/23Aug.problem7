@@ -1,0 +1,35 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _23Aug.pro7
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int i, j;
+            Console.WriteLine("enter a first value");
+            i = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("enter a sec value");
+            j = Convert.ToInt32(Console.ReadLine());
+
+            try
+            {
+                int a = i / j;
+                Console.WriteLine(a);
+            }
+            catch (DivideByZeroException s)
+            {
+                Console.WriteLine(s.Message);
+                Console.WriteLine(s.StackTrace);
+
+            }
+            Console.ReadKey();
+        }
+    }
+}
