@@ -1,0 +1,26 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ReusableCodeLibrary
+{
+    public class Class6
+    {
+        public static void pro5()
+        {
+            string Str = "Welcome to  world of C# programing";
+            char [] str1 = {  '#' };
+            
+            string[] str2 = Str.Split(str1);
+            foreach (string item in str2)
+            {
+                Console.WriteLine(item);
+            }
+
+            
+
+        }
+    }
+}
