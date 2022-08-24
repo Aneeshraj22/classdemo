@@ -1,0 +1,33 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ReusableCodeLibrary
+{
+    public class Class5
+    {
+        public static void Date()
+        {
+            Console.WriteLine("Enter date");
+            DateTime dt =new DateTime();
+            dt=Convert.ToDateTime(Console.ReadLine());
+            Console.WriteLine("Year=");
+            Console.WriteLine(dt.Year);
+            Console.WriteLine("month=");
+            Console.WriteLine(dt.Month);
+            Console.WriteLine("Day=");
+            Console.WriteLine(dt.Day);
+            Console.WriteLine("hour");
+            Console.WriteLine(dt.Hour);
+            Console.WriteLine("minute");
+            Console.WriteLine(dt.Minute);
+            Console.WriteLine("second");
+            Console.WriteLine(dt.Second);
+            Console.WriteLine("millisecond");
+            Console.WriteLine(dt.Millisecond);
+
+        }
+    }
+}
