@@ -1,0 +1,39 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _23Aug.pro8
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("enter the first value");
+            int i=Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("enter the sec value");
+            int j = Convert.ToInt32(Console.ReadLine());
+            DivNumber(i, j);
+
+        }
+        static void DivNumber(int i,int j)
+        {
+            try
+            {
+                int k = i / j;
+                Console.WriteLine(k);
+
+            }
+            catch(DivideByZeroException e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                Console.ReadKey();
+            }
+        }
+
+    }
+}
