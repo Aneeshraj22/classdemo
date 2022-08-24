@@ -1,0 +1,77 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+
+namespace _23Aug.pro4
+{
+    internal class Class1
+    {
+    }
+    struct Emp
+    {
+        public int Deptno;
+        public string Ename;
+        public int Sal;
+        public int Empno;
+
+        public void AcceptEmp(int deptno,string ename,int sal,int empno)
+        {
+            Deptno = deptno;
+            Ename = ename;
+            Sal = sal;
+            Empno = empno;
+
+        }
+        public void DisplayInfo()
+        {
+            Console.WriteLine(Deptno);
+            Console.WriteLine(Ename);
+            Console.WriteLine(Sal);
+            Console.WriteLine(Empno);
+        }
+
+
+    }
+}
+===========================================================================
+
+
+using _23Aug.pro4;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _23Aug.prog4
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Emp s1= new Emp();
+
+            Console.WriteLine("Enter the Empno");
+            int Empno = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter the Ename");
+            string Ename = Console.ReadLine();
+            Console.WriteLine("Enter the sal");
+            int Sal = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter the Deptno");
+            int Deptno = Convert.ToInt32(Console.ReadLine());
+
+
+            s1.AcceptEmp(Empno, Ename, Sal, Deptno);
+
+               Console.WriteLine(" print the data");
+            s1.DisplayInfo();
+            Console.ReadLine();
+
+
+        }
+    }
+}
