@@ -1,1 +1,33 @@
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ReusableCodeLibrary;
+
+namespace MyApp
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Class1.Compare();
+            Console.WriteLine("------------------------");
+            Class2.MakeFile();
+            Console.WriteLine("--------------------------");
+            Class3.Uppercare();
+            Console.WriteLine("-----------------------------");
+            Class4.Index();
+            Console.WriteLine("-------------------------");
+            Class5.Date();
+            Console.WriteLine("------------------------");
+            Class6.pro5();
+            Console.WriteLine("-------------------");
+            Class7.copy();
+            Console.WriteLine("=================");
+            Console.ReadLine();
+
+        }
+    }
+}
