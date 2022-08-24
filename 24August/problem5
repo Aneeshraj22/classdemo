@@ -1,1 +1,26 @@
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ReusableCodeLibrary
+{
+    public class Class3
+    {
+        public static void Uppercare()
+        {
+
+            string s;
+            Console.WriteLine("Enter the str=");
+            s = Console.ReadLine();
+            string str = s.ToUpper();
+            Console.WriteLine("In UpperCase");
+            Console.WriteLine(str);
+            }
+
+
+        
+    }
+}
