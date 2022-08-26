@@ -1,0 +1,169 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net.NetworkInformation;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _25AugP3
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string path = @"C:\Users\Aneesh Raj\source\Result";
+            Directory.CreateDirectory(path);
+            Console.WriteLine("Directory created");
+
+            string path1 = @"C:\Users\Aneesh Raj\source\Result\Result17-18";
+            Directory.CreateDirectory(path1);
+            Console.WriteLine("sub Directory created1");
+
+
+            string path2 = @"C:\Users\Aneesh Raj\source\Result\Result18-19";
+            Directory.CreateDirectory(path2);
+            Console.WriteLine("sub Directory created2");
+
+
+            string path3 = @"C:\Users\Aneesh Raj\source\Result\Result20-21";
+            Directory.CreateDirectory(path3);
+            Console.WriteLine("sub Directory created3");
+
+
+
+            //string s1=Console.ReadLine();
+            //s1 = string.Concat(path11, s1);
+            //File.Create(s1 );
+            //Console.WriteLine("success");
+
+
+            //string path12 = @"C:\Users\Aneesh Raj\source\Result\Result17-18\\";
+            //Console.WriteLine("enter the name");
+
+
+            //string s2 = Console.ReadLine();
+            //s2 = string.Concat(path12, s2);
+            //File.Create(s2);
+            //Console.WriteLine("success");
+
+
+
+
+            //string path11= @"C:\Users\Aneesh Raj\source\Result\Result18-19\\";
+            //Console.WriteLine("enter name");
+
+            //string s1 = Console.ReadLine();
+            //s1 = string.Concat(path11, s1);
+            //File.Create(s1);
+            //Console.WriteLine("success");
+
+
+            //string path12 = @"C:\Users\Aneesh Raj\source\Result\Result18-19\\";
+            //Console.WriteLine("enter the name");
+
+
+            //string s2 = Console.ReadLine();
+            //s2 = string.Concat(path12, s2);
+            //File.Create(s2);
+            //Console.WriteLine("success");
+
+
+
+
+            //string path11 = @"C:\Users\Aneesh Raj\source\Result\Result20-21\\";
+            //Console.WriteLine("enter name");
+
+            //string s1 = Console.ReadLine();
+            //s1 = string.Concat(path11, s1);
+            //File.Create(s1);
+            //Console.WriteLine("success");
+
+
+            //string path12 = @"C:\Users\Aneesh Raj\source\Result\Result20-21\\";
+            //Console.WriteLine("enter the name");
+
+
+            //string s2 = Console.ReadLine();
+            //s2 = string.Concat(path12, s2);
+            //File.Create(s2);
+            //Console.WriteLine("success");
+
+
+
+
+            // string path1 = @"C:\Users\Aneesh Raj\source\Result\Result17-18\jan";
+            // Directory.CreateDirectory(path1);
+            // Console.WriteLine("sub Directory created1");
+
+
+            // string path2 = @"C:\Users\Aneesh Raj\source\Result\Result17-18\feb";
+            // Directory.CreateDirectory(path2);
+            // Console.WriteLine("sub Directory created2");
+
+
+            // string path3 = @"C:\Users\Aneesh Raj\source\Result\Result17-18\march";
+            // Directory.CreateDirectory(path3);
+            // Console.WriteLine("sub Directory created3");
+
+            //string path4 = @"C:\Users\Aneesh Raj\source\Result\Result17-18\april";
+            // Directory.CreateDirectory(path4);
+            // Console.WriteLine("sub Directory created3");
+
+
+
+            //string path1 = @"C:\Users\Aneesh Raj\source\Result\Result18-19\may";
+            //Directory.CreateDirectory(path1);
+            //Console.WriteLine("sub Directory created1");
+
+
+            //string path2 = @"C:\Users\Aneesh Raj\source\Result\Result18-19\june";
+            //Directory.CreateDirectory(path2);
+            //Console.WriteLine("sub Directory created2");
+
+
+            //string path3 = @"C:\Users\Aneesh Raj\source\Result\Result18-19\july";
+            //Directory.CreateDirectory(path3);
+            //Console.WriteLine("sub Directory created3");
+
+            //string path4 = @"C:\Users\Aneesh Raj\source\Result\Result18-19\aug";
+            //Directory.CreateDirectory(path4);
+            //Console.WriteLine("sub Directory created3");
+
+
+
+
+            //string path1 = @"C:\Users\Aneesh Raj\source\Result\Result20-21\sep";
+            //Directory.CreateDirectory(path1);
+            //Console.WriteLine("sub Directory created1");
+
+
+            //string path2 = @"C:\Users\Aneesh Raj\source\Result\Result20-21\oct";
+            //Directory.CreateDirectory(path2);
+            //Console.WriteLine("sub Directory created2");
+
+
+            //string path3 = @"C:\Users\Aneesh Raj\source\Result\Result20-21\nov";
+            //Directory.CreateDirectory(path3);
+            //Console.WriteLine("sub Directory created3");
+
+            //string path4 = @"C:\Users\Aneesh Raj\source\Result\Result20-21\dec";
+            //Directory.CreateDirectory(path4);
+            //Console.WriteLine("sub Directory created3");
+
+
+            
+
+
+
+
+            Console.ReadLine();
+
+
+
+        }
+    }
+}
+
+
+
