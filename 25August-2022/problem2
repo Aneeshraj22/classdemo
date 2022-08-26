@@ -1,0 +1,43 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+
+namespace _25aug.p2
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string path = @"C:\Users\Aneesh Raj\source\";
+            Console.WriteLine("enter file name:");
+            
+            string fname=Console.ReadLine();           
+            fname = string.Concat(path, fname);
+
+            //File.Create(fname);
+            //Console.WriteLine("file created");
+
+
+
+            // File.Copy(fname, "copiedFile.txt");
+
+            //File.Move(fname, "movedfile.txt");
+            //Console.WriteLine("successufully moved");
+
+            //File.Delete(fname);
+            //Console.WriteLine("deleted successfully");
+
+
+            FileInfo fileInfo = new FileInfo(fname);
+            Console.WriteLine(fileInfo.Extension);
+            Console.WriteLine(fileInfo.CreationTime);
+            Console.WriteLine(fileInfo.DirectoryName);
+
+            Console.ReadLine();
+        }
+    }
+}
