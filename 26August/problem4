@@ -1,0 +1,35 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _26Augpro4
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            LinkedList<string> list = new LinkedList<string>();
+            Console.WriteLine("values.....");
+             
+            list.AddFirst("one");
+            
+            list.AddLast("ten");
+            list.AddBefore(list.First.Next, "three");
+            list.AddAfter(list.Last.Previous, "nine");
+
+
+            LinkedListNode<string> node = list.Find("three");
+            node.Value = "two";
+
+
+
+            foreach (string item in list)
+            {
+                Console.WriteLine(item);
+            }
+            Console.ReadLine();    
+        }
+    }
+}
