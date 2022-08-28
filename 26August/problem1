@@ -1,0 +1,86 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace StudentLib2
+{
+    public class Class1
+    {
+    }
+    public struct Student
+    {
+        public int Rollno;
+        public string Name;
+        public int Age;
+        
+
+        public void AcceptStudent(int rollno, string name, int age)
+        {
+            Rollno = rollno;
+            Name = name;
+            Age = age;
+            
+        }
+
+        public void DisplayInfo()
+        {
+
+            Console.WriteLine(Rollno);
+            Console.WriteLine(Name);
+            Console.WriteLine(Age);
+            
+        }
+    }
+}
+
+
+===================================================================
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using StudentLib2;
+
+namespace _26Augustpro1
+{
+    public class Student2
+    {
+        
+        
+            public static void Main(string[] args)
+            {
+                Student[] std = new Student[2];
+                Console.WriteLine("Student information");
+                for (int i = 0; i < std.Length; i++)
+                {
+
+                    Console.WriteLine("Enter a Rollno:");
+                    int Rollno = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("Enter a Name:");
+                    string Name = Console.ReadLine();
+                    Console.WriteLine("Enter a Age:");
+                    int Age = Convert.ToInt32(Console.ReadLine());
+                   
+                    std[i].AcceptStudent(Rollno, Name, Age );
+
+                }
+                Console.WriteLine("------------------------------------------------");
+                Console.WriteLine("Printing the information");
+
+                for (int i = 0; i < std.Length; i++)
+                {
+                    std[i].DisplayInfo();
+                }
+
+
+                Console.ReadLine();
+            }
+        }
+
+        }
+    
