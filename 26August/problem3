@@ -1,0 +1,93 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HRLib
+{
+    public class product
+    {
+		private int _pid;
+
+		public int Pid
+		{
+			get { return _pid; }
+			set { _pid = value; }
+		}
+
+		private string _pname;
+
+		public string Pname
+		{
+			get { return _pname; }
+			set { _pname = value; }
+		}
+
+		private int _pprice;
+
+		public int Pprice
+		{
+			get { return _pprice; }
+			set { _pprice = value; }
+		}
+
+
+
+	}
+}
+=========================================================================
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using HRLib;
+namespace _26AugProblem3
+{
+    public class product1
+    {
+        static void Main(String[] args)
+        {
+            List<product> products = new List<product>();
+            products.Add(new product { Pid = 1, Pname = "bike", Pprice = 1000 });
+            products.Add(new product { Pid = 2, Pname = "car",Pprice = 2000 });
+            products.Add(new product { Pid = 3, Pname = "bus", Pprice = 5000 });
+
+            Console.WriteLine("enter the product");
+            Console.WriteLine("before remove");
+
+            foreach (var item in products)
+            {
+                Console.WriteLine("productId=" + item.Pid);
+                Console.WriteLine("product name=" + item.Pname);
+                Console.WriteLine("pruduct price="+ item.Pprice);
+                Console.WriteLine("---------------------------------");
+                
+            }
+            products.RemoveAt(1);
+            Console.WriteLine("after Remove");
+            foreach (var item in products)
+            {
+                Console.WriteLine("productId=" + item.Pid);
+                Console.WriteLine("product name=" + item.Pname);
+                Console.WriteLine("pruduct price=" + item.Pprice);
+                Console.WriteLine("---------------------------------");
+
+            }
+
+            Console.ReadLine();
+
+
+
+
+
+        } 
+
+
+         
+        
+    }
+}
