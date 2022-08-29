@@ -1,0 +1,119 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _29Augpro2
+{
+    internal class  Program
+    {
+        static void Main(string[] args)
+        {
+           LinearQueue a = new LinearQueue(5);
+            a.insert(10);
+            a.insert(20);
+            a.insert(30);
+            a.insert(40);
+            a.insert(50);
+
+            Console.WriteLine("itrem are....");
+            
+            a.typeQueue();
+            Console.WriteLine("------------------");
+
+            Console.WriteLine("deleted item....");
+            a.delete();
+            a.delete();
+
+            
+
+
+            Console.WriteLine("printed item remaining....");
+            a.typeQueue();
+            Console.ReadLine();
+
+
+
+
+        }
+
+    }
+        
+}    
+=================================================================
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _29Augpro2
+{
+    public class LinearQueue
+    {
+        
+        
+            private int[] element;
+            private int front=0;
+            private int back=-1;
+            private int max;
+
+            public LinearQueue(int size)
+            {
+                element = new int[size];
+                front = 0;
+                back = -1;
+                max = size;
+            }
+            public void insert(int item)
+            {
+                if (back == max - 1) 
+                {
+                    Console.WriteLine("overflowed queue");
+                    return;
+                }
+                else
+                {
+                    element[++back]=item;
+                }
+            }
+            public int delete()
+            {
+                if (front == back + 1)
+                {
+                    Console.WriteLine("queue is empty");
+                    return -1;
+                }
+                else
+                {
+                    return element[front++];
+                }
+            }
+            public void typeQueue()
+            {
+                if(front == back + 1)
+                {
+                    Console.WriteLine("queue is empty");
+
+                }
+                else
+                {
+                    for(int i = front; i <= back; i++)
+                    {
+                        Console.WriteLine("value"+element[i]);
+                    }
+                }
+            }
+        
+            
+
+    }  
+
+
+
+}   
+
