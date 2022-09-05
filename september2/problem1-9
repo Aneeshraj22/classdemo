@@ -1,0 +1,256 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using HRLIb;
+namespace _2September
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            product pro = new product();
+            pro.PId = 11;
+            pro.PName = "coffee";
+            pro.Uprice = 20;
+            pro.Qsold = 30;
+            pro.Umeasurement = "liter";
+            pro.qtyinhand = 5;
+            pro.Rlevel = 2;
+
+
+            product pro1 = new product();
+            pro1.PId = 13;
+            pro1.PName = "tea";
+            pro1.Uprice = 30;
+            pro1.Qsold = 40;
+            pro1.Umeasurement = "liter";
+            pro1.qtyinhand = 4;
+            pro1.Rlevel = 3;
+
+            product pro2=new product();
+            pro2.Addpro();
+
+            List<product> list = new List<product>();
+            list.Add(pro);
+            list.Add(pro1);
+            list.Add(pro2);
+
+
+
+
+
+
+            category cat = new category();
+            cat.CategoryId = 12;
+            cat.Categoryname = "drinks";
+            cat.Description = "liquid";
+
+            category cat2=new category();
+            cat2.Addcat();
+
+            List<category> list2 = new List<category>();
+            list2.Add(cat);
+            list2.Add(cat2);
+
+
+            foreach (var c in list2)
+            {
+                Console.WriteLine("category------------------");
+                Console.WriteLine("category id=" + c.CategoryId);
+                Console.WriteLine("category name=" + c.Categoryname);
+                Console.WriteLine("description=" + c.Description);
+
+            }
+
+
+
+            foreach (var p in list)
+            {
+                Console.WriteLine("------------------product--------------------------");
+                Console.WriteLine("product id=" + p.PId);
+                Console.WriteLine("product name=" + p.PName);
+                Console.WriteLine("price=" + p.Uprice);
+                Console.WriteLine("sold=" + p.Qsold);
+                Console.WriteLine("mesurement=" + p.Umeasurement);
+                Console.WriteLine("qty inhand=" + p.qtyinhand);
+                Console.WriteLine("rlevel=" + p.Rlevel);
+                Console.WriteLine("count-------------------");
+                cat.Addcount();
+               
+
+
+                
+            }
+            Console.ReadLine();
+
+        }
+    }
+}
+==============================================================================================================================
+
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HRLIb
+{
+    public class category
+    {
+        int catid;
+        string catname;
+        string desc;
+
+        
+
+        public int CategoryId
+        {
+            get { return catid; }
+            set { catid = value; }
+        }
+
+        
+
+        public string Categoryname
+        {
+            get { return catname; }
+            set { catname = value; }
+        }
+
+
+        public string Description
+        {
+            get { return desc; }
+            set { desc = value; }
+        }
+
+
+        private List<product> listcat;
+
+        public List<product> Lcat
+        {
+            get { return listcat; }
+            set { listcat = value; }
+        }
+
+        static int pcount = 0;
+        public void Addcount()
+        {
+            pcount = 1;
+            Console.WriteLine("added product=" + pcount);
+        }
+
+        public void Addcat()
+        {
+            catid = 1;
+            catname = "food";
+            desc = "solid";
+        }
+
+      
+    }
+
+
+
+
+
+
+
+
+
+
+    public class product
+    {
+        int pid;
+        string pname;
+        int uprice;
+        int qsold;
+        string umeasure;
+        int qhand;
+        int rlevel;
+
+        private int productid;
+
+        public int PId
+        {
+            get { return productid; }
+            set { productid = value; }
+        }
+
+        private string productname;
+
+        public string PName
+        {
+            get { return  productname; }
+            set {  productname = value; }
+        }
+
+
+        private int unitprice;
+
+        public int Uprice
+        {
+            get { return unitprice; }
+            set { unitprice = value; }
+        }
+
+        private int qtysold;
+
+        public int Qsold
+        {
+            get { return qsold; }
+            set { qsold = value; }
+        }
+
+        private string unitmeasurement;
+
+        public string Umeasurement
+        {
+            get { return unitmeasurement; }
+            set { unitmeasurement = value; }
+        }
+
+        private int qtyhand;
+
+        public int qtyinhand
+        {
+            get { return qtyhand; }
+            set { qtyhand = value; }
+        }
+
+        private int recordlevel;
+
+        public int Rlevel
+        {
+            get { return recordlevel; }
+            set { recordlevel = value; }
+        }
+
+
+        public void Addpro()
+        {
+            productid = 21;
+            productname = "boost";
+            uprice = 35;
+            qsold = 45;
+            unitmeasurement = "liter";
+            qtyhand = 15;
+            recordlevel = 4;
+
+        }
+
+
+
+
+    }
+
+    
+   
+
+    
+}
