@@ -1,0 +1,324 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using classLib1;
+
+namespace _5september
+{
+    public class Program
+    {
+        static void Main(string[] args)
+        {
+            BookCategory c = new BookCategory();
+            c.CatId = 1;
+            c.Catname= "coding";
+            c.Description= "learn Programming";
+
+            Book b1 = new Book();
+            b1.InsertBook(11, "C", 1000, "karthik");
+            Book b2 = new Book();
+            b2.InsertBook(12, "c++", 1200, "praveen");
+            BookCategory a = new BookCategory();
+            a.CatId = 2;
+            a.Catname = "books";
+            a.Description = "Stories";
+
+            Novel n = new Novel();
+            n.InsertBook(15, "abc", 500, 30);
+            Novel n1 = new Novel();
+            n1.InsertBook(18, "cde", 800, 89);
+
+            Cart z = new Cart();
+            z.Addbook(20, 13,"qwe",180);
+            Cart x = new Cart();
+            x.Addbook(21, 50,"ert",1230);
+
+            List<Cart> Booklist = new List<Cart>();
+            Booklist.Add(z);
+            Booklist.Add(x);
+            z.BookLists= Booklist;
+            x.BookLists= Booklist;
+           
+            x.Displayinfo();
+            z.Displayinfo();
+            
+            Console.ReadLine();
+        }
+    }
+}
+=============================================================================
+
+class book
+----------
+
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Net;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace classLib1
+{
+    public class Book
+    {
+		
+		private int _bkid;
+
+		public int BookId
+		{
+			get { return _bkid; }
+			set { _bkid = value; }
+		}
+
+		private string  bkname;
+
+		public string  BookName
+		{
+			get { return bkname; }
+			set { bkname = value; }
+		}
+
+		private int bkprice;
+
+		public int Bookprice
+		{
+			get { return bkprice; }
+			set { bkprice = value; }
+		}
+
+
+		private string author;
+		public string Author
+		{
+			get { return author; }
+			set { author = value; }
+        }
+		private int nopages;
+
+		public int NoOfPages
+		{
+			get { return nopages; }
+			set { nopages = value; }
+		}
+		public Book()
+		{
+
+		}
+		public Book(int bkid, string bkname, int bkprice,string author)
+		{
+            this.BookId = bkid;
+            this.BookName = bkname;
+            this.Bookprice = bkprice;
+			this.Author = author;
+        }
+
+
+		public void InsertBook(int bkid,string bkname,int bkprice)
+		{
+
+            this.BookId = bkid;
+			this.BookName = bkname;
+			this.Bookprice = bkprice;
+
+		}
+        public void InsertBook(int bkid, string bkname, int bkprice,string author)
+		{
+
+            this.BookId = bkid;
+            this.BookName = bkname;
+            this.Bookprice = bkprice;
+            this.Author = author;
+
+		}
+        public void InsertBook(int bkid, string bkname)
+		{
+            this.BookId = bkid;
+            this.BookName = bkname;
+
+        }
+        public void InsertBook(int bkid, string bkname,int bkprice,int nopages)
+		{
+
+            this.BookId = bkid;
+            this.BookName = bkname;
+			this.NoOfPages=nopages;
+
+        }
+
+
+
+
+
+
+
+    }
+}
+===========================================================================
+class bookcategory
+-----------------
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace classLib1
+{
+    public class BookCategory
+    {
+		
+		private int catid;
+
+		public int CatId
+		{
+			get { return catid; }
+			set { catid = value; }
+		}
+
+		private string catname;
+
+		public string Catname
+		{
+			get { return catname; }
+			set { catname = value; }
+		}
+
+		private string desc;
+
+		public string Description
+		{
+			get { return desc; }
+			set { desc = value; }
+		}
+		public BookCategory()
+		{
+
+		}
+		public BookCategory(int catid,string catname,string desc)
+		{
+			this.CatId = catid;
+			this.Catname = catname;
+			this.Description = desc;
+
+		}
+
+
+	}
+}
+========================================================================================
+class novel
+-----------
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace classLib1
+{
+    public class Novel:Book
+    {
+        public new void InsertBook(int bkid, string bkname, int bkprice,int nopages)
+        {
+            this.BookId = bkid;
+            this.BookName = bkname;
+            this.Bookprice = bkprice;
+            this.NoOfPages=nopages;
+        }
+    }
+}
+========================================================================================
+class cart
+----------
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace classLib1
+{
+    public class Cart:Book
+    {
+		private int cid;
+
+		public int CustromerId
+		{
+			get { return cid; }
+			set { cid = value; }
+		}
+		private int bookingid;
+
+		public int BookingId
+		{
+			get { return bookingid; }
+			set { bookingid = value; }
+		}
+		
+
+		
+
+		private List<Cart> booklist;
+
+		public List<Cart> BookLists
+		{
+			get { return booklist; }
+			set { booklist = value; }
+		}
+
+
+
+
+
+
+		public void Addbook(int cid,int bookingid,string bkname,int bkprice)
+		{
+			this.CustromerId = cid;
+			this.BookingId = bookingid;
+			this.BookName = bkname;
+			this.Bookprice = bkprice;
+
+        }
+		static int bookcount=0;
+		public void AddCount()
+		{
+			bookcount += 1;
+			Console.WriteLine("count Added {0}--------------",bookcount);
+		
+		}
+
+		public void Displayinfo()
+		{
+			Console.WriteLine("books in carts........................");
+			Console.WriteLine("details");
+			foreach(var c in BookLists)
+			{
+				Console.WriteLine("custromerid=" + this.CustromerId);
+				Console.WriteLine("bookingid="+ this.BookingId);
+				Console.WriteLine("bookname=" + this.BookName);
+				Console.WriteLine("price="+this.Bookprice);
+				AddCount();
+				Console.ReadLine();
+			}
+		}
+		
+			
+
+
+		
+
+		
+
+
+	}
+}
