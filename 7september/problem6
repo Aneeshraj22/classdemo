@@ -1,0 +1,45 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ClassLib1
+{
+    public delegate void concstr(string s1, string s2);
+    public class conc
+    {
+        public void Concatstring(string s1, string s2)
+        {
+            string s3 = string.Concat(s1, s2);
+            Console.WriteLine("Concatenated str :" + s3);
+        }
+    }
+}
+----------------------------------------------------
+using ClassLib1;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _7September
+{
+    internal class pro6
+    {
+        static void Main(string[] args)
+        {
+            string a, b;
+            Console.WriteLine("enter the str1");
+            a=Console.ReadLine();
+            Console.WriteLine("enter the str2");
+            b=Console.ReadLine();
+            conc c=new conc();
+            concstr del = new concstr(c.Concatstring);
+            del(a,b);
+            Console.ReadLine();
+
+        }
+    }
+}
