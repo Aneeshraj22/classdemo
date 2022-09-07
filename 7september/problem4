@@ -1,0 +1,48 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ClassLib1
+{
+    public delegate void prod();
+    public class product
+    {
+        public int proId { get; set; }
+        public string proName { get; set; }
+
+        public void displayinfo()
+        {
+            Console.WriteLine("productid="+proId);
+            Console.WriteLine("productname="+proName);
+        }
+    }
+}
+-------------------------------------------------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ClassLib1;
+
+namespace _7September
+{
+    internal class pro4
+    {
+        static void Main(string[] args)
+        {
+            product p=new product();
+            Console.WriteLine("enter the product id=");
+            p.proId=Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("enter the product name=");
+            p.proName=Convert.ToString(Console.ReadLine());
+
+            prod del = new prod(p.displayinfo);
+            del();
+            Console.ReadLine();
+        }
+
+    }
+}
