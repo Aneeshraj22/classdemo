@@ -1,0 +1,48 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ClassLib1;
+
+namespace _7September
+{
+    public class prog5
+    {
+        static void Main(string[] args)
+        {
+            employee e = new employee();
+            Console.WriteLine("enter the joining date=");
+           e.joiningyear=Convert.ToDateTime(Console.ReadLine());
+            calservice del = new calservice(e.calc);
+            del();
+            Console.ReadLine();
+        }
+    }
+}
+----------------------------------------------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ClassLib1
+{
+    public delegate void calservice();
+    public class employee
+    {
+        public DateTime joiningyear { get; set; }
+
+        public void calc()
+        {
+            DateTime d=DateTime.Now;
+            int a = d.Year;
+            int b=joiningyear.Year;
+            int q=a-b;
+            Console.WriteLine("serviced years="+q);
+        }
+        
+        
+    }
+}
