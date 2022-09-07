@@ -1,0 +1,41 @@
+using ClassLib1;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _7September
+{
+    public class pro7
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter the string");
+            string s = Console.ReadLine();
+            makeup a=new makeup();
+            makeupper del = new makeupper(a.fupper);
+            del(s);
+            Console.ReadLine();
+        }
+    }
+}
+-----------------------------------------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ClassLib1
+{
+    public delegate void makeupper(string a);
+    public class makeup
+    {
+        public void fupper(string s)
+        {
+            string a = char.ToUpper(s[0])+s.Substring(1);
+            Console.WriteLine("uppercase"+a);
+        }
+    }
+}
