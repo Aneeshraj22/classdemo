@@ -1,0 +1,100 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ClassLib
+{
+    public abstract class person
+    {
+        public void work()
+        {
+
+        }
+    }
+    public class Employee:person
+    {
+
+    }
+    public class manager : person
+    {
+
+    }
+    public class clerk : person
+    {
+
+    }
+
+    interface Ibank
+    {
+         void PrintBlance();
+        void calculateIntrest();
+        
+
+    }
+    public class saving : Ibank
+    {
+        public void calculateIntrest()
+        {
+            double r = 4, p, intrest;
+            int y;
+            Console.WriteLine("enter the value of p:");
+            p= Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("enter the value of y:");
+            y =Convert.ToInt32(Console.ReadLine());
+             intrest = p * y * r/100;
+            Console.WriteLine("Intrest="+intrest);
+            
+        }
+
+        public void PrintBlance()
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class current : Ibank
+    {
+        public void calculateIntrest()
+        {
+            double r = 2, p, intrest;
+            int y;
+            Console.WriteLine("enter the value of p:");
+            p = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("enter the value of y:");
+            y = Convert.ToInt32(Console.ReadLine());
+            intrest = p * y * r / 100;
+            Console.WriteLine("Intrest=" + intrest);
+        }
+
+        public void PrintBlance()
+        {
+            throw new NotImplementedException();
+        }
+
+
+    }
+}
+====================================================================
+
+using ClassLib;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _6September
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            saving s=new saving();
+            s.calculateIntrest();
+            current c=new current();
+            c.calculateIntrest();
+            Console.ReadLine();
+        }
+    }
+}
