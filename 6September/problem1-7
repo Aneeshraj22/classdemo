@@ -1,3 +1,54 @@
+using ClassLib;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _6September
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            savings s = new savings();
+            s.printbalance();
+            int a = s.calculateinterest();
+
+
+
+            Console.WriteLine(a);
+            s.Deposit(15000);
+            Console.WriteLine("Deposited  amount 15000");
+
+            Console.WriteLine("with drawing 1000......");
+            s.withdraw(1000);
+
+            Console.WriteLine("last updated " + s.d);
+
+
+            current c = new current();
+            c.printbalance();
+            int m = c.calculateinterest();
+            Console.WriteLine(m);
+
+            Console.WriteLine("With drawing 500");
+            c.withdraw(1000);
+            c.Depositing(15000);
+            Console.WriteLine("15000 is deposited....");
+            Console.WriteLine("last updated " + c.e);
+
+
+
+
+
+            Console.ReadLine();
+            ;
+        }
+    }
+}
+
+====================================================================
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,75 +77,81 @@ namespace ClassLib
 
     }
 
-    interface Ibank
+
+
+
+    public interface IBank
     {
-         void PrintBlance();
-        void calculateIntrest();
-        
+        void printbalance();
+        int calculateinterest();
 
     }
-    public class saving : Ibank
+
+    public class savings : IBank
     {
-        public void calculateIntrest()
+        public DateTime d = new DateTime(2020, 03, 04);
+
+        public void printbalance()
         {
-            double r = 4, p, intrest;
-            int y;
-            Console.WriteLine("enter the value of p:");
-            p= Convert.ToDouble(Console.ReadLine());
-            Console.WriteLine("enter the value of y:");
-            y =Convert.ToInt32(Console.ReadLine());
-             intrest = p * y * r/100;
-            Console.WriteLine("Intrest="+intrest);
-            
+            Console.WriteLine("The balance is " + b1);
         }
 
-        public void PrintBlance()
-        {
-            throw new NotImplementedException();
-        }
+        public int calculateinterest()
+        { return b1 / Interestrate; }
+        public int b1 = 100000;
+        public int Interestrate = 4;
     }
-    public class current : Ibank
+
+
+
+    public class current : IBank
     {
-        public void calculateIntrest()
+        public DateTime e = new DateTime(2020, 03, 04);
+        public void printbalance()
         {
-            double r = 2, p, intrest;
-            int y;
-            Console.WriteLine("enter the value of p:");
-            p = Convert.ToDouble(Console.ReadLine());
-            Console.WriteLine("enter the value of y:");
-            y = Convert.ToInt32(Console.ReadLine());
-            intrest = p * y * r / 100;
-            Console.WriteLine("Intrest=" + intrest);
+            Console.WriteLine("The balance is " + B);
         }
 
-        public void PrintBlance()
+        public int calculateinterest()
+        { return B / Interestrate; }
+
+        public int B = 15000;
+
+        public int Interestrate = 2;
+
+
+    }
+
+
+
+
+
+
+    public static class Extensions
+    {
+        public static void withdraw(this savings s, int amount)
         {
-            throw new NotImplementedException();
+            s.b1 -= amount;
+            s.printbalance();
         }
 
+        public static void withdraw(this current s, int amount)
+        {
+            s.B -= amount;
+            s.printbalance();
+        }
+
+        public static void Deposit(this savings s, int amount)
+        {
+            s.b1 += amount;
+            s.printbalance();
+        }
+        public static void Depositing(this current s, int amount)
+        {
+            s.B += amount;
+            s.printbalance();
+        }
 
     }
 }
-====================================================================
 
-using ClassLib;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace _6September
-{
-    internal class Program
-    {
-        static void Main(string[] args)
-        {
-            saving s=new saving();
-            s.calculateIntrest();
-            current c=new current();
-            c.calculateIntrest();
-            Console.ReadLine();
-        }
-    }
-}
