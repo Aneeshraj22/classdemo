@@ -1,0 +1,42 @@
+using ClassLib1;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _7September
+{
+    
+    public class pro2
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("enter the name");
+            string s=Console.ReadLine();
+            greetuser a=new greetuser();
+            guser del = new guser(a.gusers);
+            del(s);
+            Console.ReadLine();
+        }
+    }
+}
+-------------------------------------------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ClassLib1
+{
+    public delegate void guser(string s1);
+
+    public class greetuser
+    {
+        public void gusers(string s1)
+        {
+            Console.WriteLine("hello "+ s1);
+        }
+    }
+}
