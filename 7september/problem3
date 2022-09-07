@@ -1,0 +1,62 @@
+using ClassLib1;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _7September
+{
+    internal class pro3
+    {
+        static void Main(string[] args)
+        {
+            int i, j;
+            Console.WriteLine("enter i value=");
+            i=Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("enter i value=");
+            j =Convert.ToInt32(Console.ReadLine());
+
+            Cal cal = new Cal();
+            calculate n = new calculate(cal.Add);
+            n(i,j);
+            calculate n1= new calculate(cal.Sub);
+            n1(i, j);
+            calculate n2 = new calculate(cal.mult);
+            n2(i, j);   
+            Console.ReadLine();
+        }
+    }
+}
+---------------------------------------------------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ClassLib1
+{
+    public delegate void calculate(int i, int j);
+    public class Cal
+    {
+        public void Add(int i,int j)
+        {
+            int k = i + j;
+            Console.WriteLine("add=" + k); 
+        }
+        public void Sub(int i, int j)
+        {
+            int k1 = i - j;
+            Console.WriteLine("sub=" + k1);
+        }
+        public void mult(int i,int j)
+        {
+            int k = i * j;
+            Console.WriteLine("mult=" + k);
+        }
+
+
+    }
+}
