@@ -1,0 +1,32 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace _9September
+{
+    public class ThreadState
+    {
+        public static void M1()
+        {
+            Thread.Sleep(1000);
+            Console.WriteLine("Name="+Thread.CurrentThread.Name);
+        }
+
+        public static void Main(string[] args)
+        {
+            Thread t=new Thread(M1);
+            t.Name = "the thread";
+            Console.WriteLine("..............before start........");
+            Console.WriteLine("thread state="+t.ThreadState);
+            t.Start();
+            Console.WriteLine("..............after start........");
+            Console.WriteLine("thread state=" + t.ThreadState);
+            Console.ReadKey();
+
+        }
+    }
+    
+}
