@@ -1,0 +1,27 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+using System.Threading;
+
+namespace _9September
+{
+     class program
+    {
+        public  static void m1()
+        {
+            for(int i = 0; i < 2; i++)
+            {
+                Console.WriteLine("value="+i);
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            Thread t=new Thread(m1);
+            t.Start();
+            Console.ReadLine();
+        }
+    }
+}
