@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -8,68 +7,48 @@ using System.Threading.Tasks;
 
 namespace _9September
 {
-    internal class Class4
+    internal class Class5
     {
-        static object l1 = new object();
-        static void PrintTable()
-        {
+        static Mutex mutex = new Mutex();
 
-            Thread.Sleep(300);
-            WriteToFile();
+
+        static Thread[] threads = new Thread[10];
+        static Semaphore sem = new Semaphore(3, 3);
+        static void M1()
+        {
+            Console.WriteLine("{0} is waiting in line...", Thread.CurrentThread.Name);
+            sem.WaitOne();
+            Console.WriteLine("{0} enters the code", Thread.CurrentThread.Name);
+            Thread.Sleep(500);
+            Console.WriteLine("{0} is leaving the code", Thread.CurrentThread.Name);
+
+            Console.WriteLine("mutexisrelased");
+            sem.Release();
+        }
+        static void UseCode()
+        {
+            mutex.WaitOne();    
+            Console.WriteLine("{0} has entered in the code",
+                Thread.CurrentThread.Name);
+              
+            Thread.Sleep(500);     
+            Console.WriteLine("{0} is leaving the code\r\n",
+                Thread.CurrentThread.Name);
+            mutex.ReleaseMutex();     
+
 
         }
 
-        static void WriteToFile()
-        {
-            string threadname = Thread.CurrentThread.Name;
-            Console.WriteLine(threadname);
-            Monitor.Enter(l1);
-
-            try
-            {
-
-                using (FileStream fs = new FileStream("tables.txt", FileMode.Append, FileAccess.Write))
-                {
-                    StreamWriter wr = new StreamWriter(fs);
-                    wr.WriteLine(threadname);
-                    wr.Close();
-                    fs.Close();
-                }
-
-
-
-
-            }
-            catch (Exception ex)
-            {
-
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-
-
-                Monitor.Exit(l1);
-                Console.WriteLine("Releasing the thread " + threadname);
-
-            }
-
-
-
-
-        }
         static void Main(string[] args)
         {
-
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 10; i++)
             {
-                Thread thread = new Thread(PrintTable);
-                thread.Name = string.Concat("thread ", i);
-                thread.Start();
-
+                threads[i] = new Thread(M1);
+                threads[i].Name = "thread_" + i;
+                threads[i].Start();
             }
             Console.Read();
-
         }
     }
 }
+
