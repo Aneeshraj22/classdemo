@@ -1,0 +1,75 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ClassLibrary1
+{
+    public class Class2
+    {
+        public double num1 { get; set; }
+
+
+        public void Accept(double n1)
+        {
+            num1 = n1;
+        }
+
+        public void cube()
+        {
+           double r=num1*num1*num1;
+            Console.WriteLine(r);
+        }
+        public void sqrt()
+        {
+             double y= Math.Sqrt(num1);
+            Console.WriteLine(y);
+        }
+    }
+}
+=====================================================================================
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Reflection;
+
+namespace _12Sept
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+           string path = @"C:\Users\Aneesh Raj\source\repos\12Sept\ClassLibrary1\bin\Debug\ClassLibrary1.dll";
+
+            Assembly asm = Assembly.LoadFrom(path);
+            Type[] types = asm.GetTypes();
+            Type t = null;
+
+            foreach (Type ty in types)
+            {
+                t = asm.GetType(ty.FullName);
+                object obj = Activator.CreateInstance(t);
+                Console.Write("Enter the Num =");
+                double d=Convert.ToDouble(Console.ReadLine());
+
+                  ty.InvokeMember("Accept", BindingFlags.Public | BindingFlags.Instance | BindingFlags.InvokeMethod, null, obj,
+           new object[1] { d });
+                
+
+                ty.InvokeMember("cube", BindingFlags.Public | BindingFlags.Instance | BindingFlags.InvokeMethod, null, obj, null);
+                
+
+                ty.InvokeMember("sqrt", BindingFlags.Public | BindingFlags.Instance | BindingFlags.InvokeMethod, null, obj, null);
+
+               
+            }
+            Console.ReadLine();
+
+
+        }
+    }
+}
