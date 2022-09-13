@@ -1,0 +1,109 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _12Sept2
+{
+    
+    
+        [System.AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = true)]
+
+        sealed class StereoDiscAttribute : Attribute
+
+        {
+            public string Sname { get; set; }
+            public string Lang { get; set; }
+            public string Lyr { get; set; }
+        }
+    
+}
+=================================================================================
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+
+namespace _12Sept2
+{
+    [StereoDisc(Lang = "Tamil", Lyr = "siva", Sname = "Don ")]
+
+    public class song
+    {
+        public string Sname { get; set; }
+        public string Lang { get; set; }
+        public string Lyr { get; set; }
+
+        public void songdetails(string sname, string lang, string lyr)
+        {
+            Sname = sname;
+            Lang = lang;
+            Lyr = lyr;
+
+        }
+    }
+}
+==============================================================================
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+
+namespace _12Sept2
+{
+    class Program
+    {
+        static void WritedataForEachCode(Type t)
+        {
+            Console.WriteLine("Methods " + t.Name);
+
+            System.Attribute[] attrs = System.Attribute.GetCustomAttributes(t);    
+
+              
+            foreach (System.Attribute attr in attrs)
+            {
+                if (attr is StereoDiscAttribute)
+                {
+                    StereoDiscAttribute a = (StereoDiscAttribute)attr;
+                    Console.WriteLine("Song Name =" + a.Sname);
+                    Console.WriteLine("Lyrics =" + a.Lyr);
+                    Console.WriteLine("Language =" + a.Lang);
+                }
+            }
+            Console.WriteLine("****************************");
+            MemberInfo[] minfo = t.GetMembers();
+
+            foreach (var item in minfo)
+            {
+                System.Attribute[] attrs1 = System.Attribute.GetCustomAttributes(item);
+
+                foreach (System.Attribute attrItem in attrs1)
+                {
+                    if (attrItem is StereoDiscAttribute)
+                    {
+                        StereoDiscAttribute a = (StereoDiscAttribute)attrItem;
+                        System.Console.WriteLine(a.Sname);
+                        Console.WriteLine(a.Lyr);
+                        Console.WriteLine(a.Lang);
+                    }
+                }
+
+            }
+
+
+        }
+        static void Main(string[] args)
+        {
+
+            Program.WritedataForEachCode(typeof(song));
+            Console.Read();
+        }
+    }
+}
