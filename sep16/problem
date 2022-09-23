@@ -1,0 +1,74 @@
+sql day 1
+----------
+
+
+Create database Shopping
+
+use Shopping
+
+create table Customer
+(
+custid   int ,
+custname varchar(20),
+city varchar(20),
+states varchar(20),
+)
+
+create table Products
+(
+prodid int,
+prodname varchar(20),
+unitprice int,
+unitofmeasurement varchar(20),
+qtyinstock int,
+)
+
+create table Sales_header
+(
+invno  int primary key ,
+invdate datetime,
+invamt int ,
+dispercent int,
+)
+
+alter table Customer
+alter column custid  int not null
+
+alter table Customer
+add primary key(custid)
+
+
+alter table Products
+alter column prodid  int not null
+
+alter table Products
+add primary key(prodid)
+
+create table sales_detail
+(
+qtysold int,
+)
+alter table sales_detail
+add custid int foreign key references Customer(custid)
+
+alter table sales_detail
+add prodid int foreign key references products(prodid)
+
+alter table sales_detail
+add invno int foreign key references Sales_header(invno)
+
+alter table sales_detail
+drop column qtysold
+
+
+alter table sales_detail
+add qty int 
+
+
+alter table sales_detail
+alter column qty  int not null
+
+alter table sales_detail
+add primary key(qty)
+
+
