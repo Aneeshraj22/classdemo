@@ -1,0 +1,225 @@
+create database LibrarySystem
+
+use LibrarySystem
+
+create table Member
+(
+Member_id numeric(5) primary key,
+Member_Name varchar(25),
+Acc_open_date date,
+Max_books_allowed numeric(2),
+Penalty_amount numeric(7,2),
+)
+
+
+
+create table Book
+(
+book_no numeric(6) primary key,
+Book_name varchar(30),
+Author    char(30),
+Cost numeric(7,2),
+Category char(10),
+)
+
+create table Issue
+(
+Lib_issue_id numeric(10) primary key,
+issue_date date,
+return_date date,
+)
+
+alter table issue
+add book_no numeric(6) foreign key references book(book_no)
+
+alter table issue
+add Member_id numeric(5) foreign key references Member(Member_id)
+
+
+Select*from book
+Select*from Member
+Select*from issue
+
+Alter table issue
+add comments varchar(100)  
+
+alter table Member
+ alter  column Member_Name char(30)
+
+ alter table issue
+ Add reference char(30)
+
+   alter table issue
+ drop column reference 
+
+ insert into Member values (1,'Richasharma','10-Dec-05',5,50)
+  insert into Member values (2,'garima sen',getdate(),3,null)
+   insert into Member values (3,'arun ',getdate(),null,20)
+    insert into Member values (4,'ram',null,4,30)
+	 insert into Member values (5,null,getdate(),7,40)
+
+
+	 
+alter table Member
+ alter  column Member_Name char(20)
+
+
+  insert into Member values (6,'sivan','20-Nov-05',110,50)
+
+
+  Select * into member101 from member
+
+  
+  insert into Book values(101,'Let us C','Denis Ritchie',450,'System')
+  insert into Book values(102,'Oracle – Complete Ref','Loni',550,'database')
+  insert into Book values(103,'mastering sql','Loni',250,'database')
+  insert into Book values(104,'pq sql Ref','scott urman',750,'database')
+  
+
+
+   Select * into book101 from Book               ----15...
+
+
+
+Select*from book
+Select*from member
+Select*from member101
+Select*from book101
+select* from issue
+
+
+ insert into Book values(105,'national geography','adif scott',1000,'science')
+
+
+  
+delete  from Book
+where book_no=105
+
+update Book
+set cost =300
+where book_no=103
+
+
+
+
+update Book
+set Category='Rdbms'
+where book_no=103
+
+	 
+alter table issue
+ drop  column comments 
+
+insert into issue values(7001,'10-Dec-06',null,101,1 )
+insert into issue values(7002,'25-dec-06',null,102,2 )
+insert into issue values(7003,'15-jan-06',null,104,1 )
+insert into issue values(7004,'04-jul-06',null,101,1 )
+insert into issue values(7005,'15-nov-06',null,104,2 )
+insert into issue values(7006,'18-feb-06',null,101,3)
+
+update Issue
+set return_date='19-jul-06'
+where Lib_issue_id=7004
+
+update Issue
+set return_date='30-nov-06'
+where Lib_issue_id=7005
+
+
+delete from issue
+where Member_id=1
+and issue_date<'10-Dec-06'
+
+
+update Member
+set Penalty_amount=100
+where Member_Name='garima sen'
+
+
+ drop table member101
+  drop table book101
+
+delete from Book
+where Category!='rdbms'and Category!='database'
+alter table issue
+drop constraint "FK__Issue__book_no__182C9B23"
+
+
+  
+Select*from book
+Select*from member
+select* from Issue
+
+
+------------------------------------------------------
+
+select * from member
+where year(Acc_open_date) = 2006
+
+select*from book
+where author ='loni'   
+and cost < 600
+
+
+select* from issue
+where return_date > GETDATE()
+
+
+update issue
+set return_date='31-Dec-06 '
+where  Lib_issue_id!= 7005 and Lib_issue_id!=  7006
+
+select * from issue
+where (day(issue_date
+) - day(return_date))>30
+
+select*from Book
+where Category='database' and (Cost>=500 and Cost<=750)
+
+
+select* from book
+where Category='science' or Category='database' or Category='fiction' or Category='management'
+
+select*from Member
+order by Penalty_amount desc
+
+select* from Book
+order by Category,Cost desc
+
+select*from Book
+where Book_name like '%sql%'
+
+select*from Member
+where Member_Name like '%R%'or Member_Name like '%g%'and Member_Name like'%i%'
+
+
+select upper(Author) as AuthorInUpper from Book 
+order by Book_Name desc
+
+
+select Book_No,('is written by') as '--------------------',Book_Name from Book
+
+
+
+
+select * from Book where Category like'%d%'
+
+
+
+select count(Book_No) from Issue
+ where Member_Id = 101
+
+ select sum(penalty_amount) total from Member
+
+ 
+select sum(Cost) as Total_Cost from Book where Category = 'Database'
+
+select min(Cost) as Cheapest_Book from Book
+
+select avg(Cost) as Average_Price_Book from Book
+
+select * from Member
+select * from Issue
+select * from Book
+
+
