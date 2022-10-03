@@ -1,0 +1,82 @@
+using dal_Lib;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _29september2
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            MyContext context = new MyContext();
+            context.BorrowerTable.Add(new Borrower { Borrower_id = 101, Bor_name = "praveen", City = "chennai", Country = "India", Company_name = "abc", Job_name = "Manager" });
+            context.SaveChanges();
+            Console.WriteLine("done");
+            Console.Read();
+        }
+    }
+}
+
+=================================================
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace dal_Lib
+{
+    public class Borrower
+    {
+        [Key]
+        public int Borrower_id { get; set; }
+
+        public string Bor_name { get; set; }
+
+        public string City { get; set; }
+
+        public string Country { get; set; }
+
+        public string Street { get; set; }
+        public string Company_name { get; set; }
+        public string Job_name { get; set; }
+    }
+
+
+    public class Loan
+    {
+        [Key]
+        public int Loan_id { get; set; }
+
+        public string L_type { get; set; }
+
+        public int Amt { get; set; }
+
+        public DateTime Duration { get; set; }
+
+        public int Rateofintrest { get; set; }
+    }
+
+
+    public class MyContext : DbContext
+    {
+        public MyContext() : base("MyContext")
+        {
+
+            Database.SetInitializer<MyContext>(new CreateDatabaseIfNotExists<MyContext>());
+
+        }
+
+
+        public virtual DbSet<Borrower> BorrowerTable { get; set; }
+
+        public virtual DbSet<Loan> LoanTable { get; set; }
+
+    }
+}=========================
