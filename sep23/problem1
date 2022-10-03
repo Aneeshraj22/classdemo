@@ -1,0 +1,215 @@
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using helpLib;
+using busi_lib;
+
+namespace september23
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+
+            try
+            {
+
+
+
+                hlib titles = new hlib();
+
+                List<Blib> books = new List<Blib>();
+
+                books = titles.get_products();
+
+                foreach (var item in books)
+                {
+                    Console.WriteLine(item.Productid);
+                    Console.WriteLine(item.productname);
+                    Console.WriteLine(item.unitprice);
+                    Console.WriteLine("*********");
+
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
+            }
+            Console.Read();
+
+
+        }
+    }
+}
+=======================================================
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace busi_lib
+{
+    public class Blib
+    {
+        private int _prodid;
+
+        public int Productid
+        {
+            get
+            {
+                return _prodid;
+            }
+            set
+            {
+                if (value == 0)
+                {
+                    throw new Exception("product  id not valid");
+
+                }
+                else
+                {
+                    _prodid = value;
+                }
+
+            }
+
+        }
+        private string _prodname;
+
+        public string productname
+        {
+            get
+            {
+                return _prodname;
+            }
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new Exception("Not valid product name.... Please check");
+                }
+                else
+                {
+                    _prodname = value;
+                }
+            }
+        }
+
+        private int _uprice;
+        public int unitprice
+        {
+            get
+            {
+                return _uprice;
+            }
+            set
+            {
+                if (value == 0)
+                {
+                    throw new Exception("price  id not valid");
+
+                }
+                else
+                {
+                    _uprice = value;
+                }
+
+            }
+
+        }
+    }
+}
+=====================================================
+
+
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using busi_lib;
+
+
+namespace dalLib
+{
+    public class datalib
+    {
+        public List<Blib> showproducts()
+        {
+            string cs = "Data Source=LAPTOP-0MJKNASN\\SQLEXPRESS;Initial Catalog=Northwind;Integrated Security=True;";
+            SqlConnection cn = new SqlConnection(cs);
+
+
+            SqlCommand cmd = new SqlCommand("select * from products", cn);
+            cn.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            List<Blib> books = new List<Blib>();
+            if(dr.HasRows)
+            {
+                while (dr.Read())
+                {
+                    Blib title = new Blib();
+                    title.Productid = dr[0].GetHashCode();
+                    title.productname = dr[1].ToString();
+                    title.unitprice = dr[5].GetHashCode();
+
+                    books.Add(title);
+                 
+                }
+            }
+            else
+            {
+                Console.WriteLine("No records found");
+            }
+            cn.Close();
+            return books;
+        }
+        
+
+
+       
+    }
+}
+=============================================================
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using helpLib;
+using dalLib;
+using busi_lib;
+
+namespace helpLib
+{
+    public class hlib
+    {
+        public List<Blib> get_products()
+        {
+            datalib titles = new datalib();
+            List<Blib> booksList = new List<Blib>();
+            booksList = titles.showproducts();
+            return booksList;
+
+
+        }
+    }
+}
+=============================================
+
+
+
