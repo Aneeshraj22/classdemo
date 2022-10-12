@@ -1,0 +1,502 @@
+
+
+Dal
+-----
+
+
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Data.SqlTypes;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using BAL_lib;
+using System.IO;
+
+
+namespace DAL_lib
+{
+    public class D_book
+    {
+        public List<B_book> listbook()
+        {
+            List<B_book> list = new List<B_book>();
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["LibrarySystem"].ConnectionString);
+            SqlCommand cmd = new SqlCommand("Select *from Book", con);
+
+            con.Open();
+
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                B_book b = new B_book();
+                b.Bookid = Convert.ToInt32(dr[0]);
+                b.Bname = Convert.ToString(dr[1]);
+                b.Author = Convert.ToString(dr[2]);
+                b.Cost = Convert.ToInt32(dr[3]);
+                b.Category = Convert.ToString(dr[4]);
+                list.Add(b);
+            }
+            con.Close();
+            con.Dispose();
+
+            return list;
+        }
+
+        public B_book findbook(int n)
+        {
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["LibrarySystem"].ConnectionString);
+            SqlCommand cmd = new SqlCommand($"Select *from Book where Bookid={n}", con);
+
+            con.Open();
+            B_book b = new B_book();
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+
+                b.Bookid = Convert.ToInt32(dr[0]);
+                b.Bname = Convert.ToString(dr[1]);
+                b.Author = Convert.ToString(dr[2]);
+                b.Cost = Convert.ToInt32(dr[3]);
+                b.Category = Convert.ToString(dr[4]);
+
+            }
+            con.Close();
+            con.Dispose();
+            return b;
+
+
+        }
+
+    }
+    public class D_member
+    {
+        public Bal_member findmember(int n)
+        {
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["LibrarySystem"].ConnectionString);
+            SqlCommand cmd = new SqlCommand($"Select *from Book where Member_id={n}", con);
+            con.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+            Bal_member n1 = new Bal_member();
+            while (dr.Read())
+            {
+                n1.member_id = Convert.ToInt32(dr[0]);
+                n1.member_name = dr[1].ToString();
+                n1.Acc_open_date = Convert.ToDateTime(dr[2]);
+                n1.Max_books_allowed = Convert.ToInt32(dr[3]);
+                n1.Penalty_amount = Convert.ToInt32(dr[4]);
+
+            }
+            con.Close();
+            con.Dispose();
+            return n1;
+
+
+
+        }
+    }
+
+    public class D_issue
+    {
+        public bool insertissue(Bal_issue p)
+        {
+
+            List<Bal_issue> c2 = listissues();
+            bool status = true;
+            foreach (var item in c2)
+            {
+                if (item.issueId == p.issueId)
+                {
+                    status = false;
+                }
+                else if (item.issueId != p.issueId && item.bookid == p.bookid && item.memberid == p.memberid && item.returndate == null)
+                {
+                    status = false;
+                }
+
+            }
+
+            if (status)
+            {
+
+                SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["LibrarySystem"].ConnectionString);
+                SqlCommand cmd = new SqlCommand("insert into issue(issueId,memberid,bookid,issuedate) values (@para1,@para2,@para3,@para4)", con);
+
+
+
+                cmd.Parameters.AddWithValue("@para1", p.issueId);
+                cmd.Parameters.AddWithValue("@para2", p.memberid);
+                cmd.Parameters.AddWithValue("@para3", p.bookid);
+                cmd.Parameters.AddWithValue("@para4", p.issuedate);
+
+                con.Open();
+                int k = cmd.ExecuteNonQuery();
+                con.Close();
+                con.Dispose();
+
+
+                if (k == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        public bool updateissue(int a)
+        {
+
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["LibrarySystem"].ConnectionString);
+            SqlCommand cmd = new SqlCommand($"update issue set returndate=@para1,comments=@para2 where issueId ={a} and comments is null", con);
+            cmd.Parameters.AddWithValue("@para1", DateTime.Now);
+            cmd.Parameters.AddWithValue("@para2", "returned");
+
+
+
+            con.Open();
+            int k1 = cmd.ExecuteNonQuery();
+            con.Close();
+            con.Dispose();
+            if (k1 == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+
+        public List<Tuple<string, string>> presentbooks(int no)
+        {
+            List<Tuple<string, string>> s = new List<Tuple<string, string>>();
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["LibrarySystem"].ConnectionString);
+            SqlCommand cmd = new SqlCommand($"Select j.member_id,i.Book_No,i.Book_Name from Book i join issue j on i.Book_No=j.Book_No where j.comments is null group by j.member_id,i.Book_No,i.Book_Name having j.member_id={no}", conn);
+            conn.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+
+                string j = dr[1].ToString();
+                string s1 = dr[2].ToString();
+                Tuple<string, string> s2 = Tuple.Create<string, string>(j, s1);
+
+                s.Add(s2);
+
+            }
+            conn.Close();
+            conn.Dispose();
+            return s;
+
+        }
+        public List<Tuple<string, string>> pastbooks(int no)
+        {
+            List<Tuple<string, string>> s = new List<Tuple<string, string>>();
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["LibrarySystem"].ConnectionString);
+            SqlCommand cmd = new SqlCommand($"Select j.member_id,i.Book_No,i.Book_Name from Book i join issue j on i.Book_No=j.Book_No where j.comments='returned' group by j.member_id,i.Book_No,i.Book_Name having j.member_id={no}", conn);
+            conn.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                string j = dr[1].ToString();
+                string s1 = dr[2].ToString();
+                Tuple<string, string> s2 = Tuple.Create<string, string>(j, s1);
+
+                s.Add(s2);
+
+
+            }
+            conn.Close();
+            conn.Dispose();
+            return s;
+
+        }
+
+        public List<Bal_issue> listissues()
+        {
+            List<Bal_issue> co1 = new List<Bal_issue>();
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["LibrarySystem"].ConnectionString);
+            SqlCommand cmd = new SqlCommand(cmdText: "Select * from issue", connection: conn);
+            conn.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                Bal_issue book = new Bal_issue();
+                book.issueId = Convert.ToInt32(dr[0]);
+                book.bookid = Convert.ToInt32(dr[1]);
+                book.memberid = Convert.ToInt32(dr[2]);
+                if (dr[3] is DBNull)
+                {
+                    book.issuedate = null;
+                }
+                else
+                {
+                    book.issuedate = Convert.ToDateTime(dr[3]);
+
+                }
+                //if (dr[4] is DBNull)
+                //{
+                //    book.returndate = null;
+
+                //}
+                //else
+                //{
+                //    book.returndate = Convert.ToDateTime(dr[4]);
+
+                //}
+                if (dr[5] is DBNull)
+                {
+                    book.comments = null;
+
+                }
+                else
+                {
+                    book.comments = dr[5].ToString();
+
+                }
+                co1.Add(book);
+            }
+            conn.Close();
+            conn.Dispose();
+            return co1;
+        }
+
+    }
+}
+
+
+
+======================================================
+
+
+bal
+-----
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BAL_lib
+{
+    public class B_book
+    {
+        public int Bookid
+        {
+            get;
+            set;
+        }
+        public string Bname
+        {
+            get;
+            set;
+        }
+        public string Author
+        {
+            get;
+            set;
+        }
+        public double Cost
+        {
+            get;
+            set;
+        }
+        public string Category
+        {
+            get;
+            set;
+        }
+        public B_book(int Book_No, string Name)
+        {
+            Bookid = Book_No;
+            Bname = Name;
+        }
+        public B_book()
+        {
+
+        }
+
+    }
+    public class Bal_member
+    {
+        public int member_id
+        {
+            get;
+            set;
+        }
+        public string member_name
+        {
+            get;
+            set;
+        }
+        public DateTime Acc_open_date
+        {
+            get;
+            set;
+        }
+        public int Max_books_allowed
+        {
+            get;
+            set;
+        }
+        public int Penalty_amount
+        {
+            get;
+            set;
+        }
+    }
+    public class Bal_issue
+    {
+        public int issueId
+        {
+            get;
+            set;
+        }
+        public int memberid
+        {
+            get;
+            set;
+        }
+        public int bookid
+        {
+            get;
+            set;
+        }
+        public DateTime? issuedate
+        {
+            get;
+            set;
+        }
+        public DateTime returndate
+        {
+            get;
+            set;
+        }
+        public string comments
+        {
+            get;
+            set;
+        }
+    }
+}
+============================================================
+
+table.cs
+-----
+
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using BAL_lib;
+using DAL_lib;
+
+namespace _1october
+{
+    public partial class tablepro : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+          
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            Bal_issue bal_Issue = new Bal_issue();
+            bal_Issue.issueId = Convert.ToInt32(TextBox1.Text);
+            bal_Issue.memberid = Convert.ToInt32(TextBox2.Text);
+            bal_Issue.bookid = Convert.ToInt32(TextBox3.Text);
+            bal_Issue.issuedate = Convert.ToDateTime(Calendar1.SelectedDate);
+
+
+
+
+            D_issue d = new D_issue();
+            bool f = d.insertissue(bal_Issue);
+            if (f)
+            {
+                Label1.Text = "inserted successfully";
+            }
+            else
+            {
+                Label1.Text = "Mismatches occured";
+            }
+        }
+    }
+}
+========================================================================
+
+
+
+
+
+
+
+
+
+
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="tablepro.aspx.cs" Inherits="_1october.tablepro" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+                    Enter the issue id:<asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+            <br />
+            <br />
+            Enter the memberID:<asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+            <br />
+            <br />
+            Enter the bookId:<asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
+            <br />
+            <br />
+            Enter the issue date:<br />
+            <asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
+            <br />
+            <br />
+                      <asp:Button ID="Button1" runat="server" Text="Inserting the book" OnClick="Button1_Click" />
+            <asp:Label ID="Label1" runat="server"></asp:Label>
+            <br />
+            <br />
+        </div>
+    </form>
+</body>
+</html>
+
+
+================================
+
+
+
+
+
+
+
