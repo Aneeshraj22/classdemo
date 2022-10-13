@@ -12,7 +12,7 @@ using Oct7.Models;
 using Hiding;
 using Businesslogic;
 
-namespace Oct7.Controllers
+namespace  October7.Controllers
 {
     public class BookController : Controller
     {
@@ -186,7 +186,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Oct7.Models
+namespace  October7.Models
 {
     public class Bookmodel
     {
