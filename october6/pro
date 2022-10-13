@@ -1,0 +1,124 @@
+product
+------
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using October_6.Models;
+using October_6.Controllers;
+using System.Web.Mvc.Html;
+
+namespace October_6.Controllers
+{
+    public class ProductsController : Controller
+    {
+        static List<Productmodel> products = new List<Productmodel>();
+        static ProductsController()
+        {
+            products.Add(new Productmodel { Proid = 1, Proname = "tea", Qty = 10 , Mfgdate = new DateTime(2021, 10, 13) });
+            products.Add(new Productmodel { Proid = 2, Proname = "Coffee", Qty = 20 , Mfgdate = new DateTime(2020, 2, 3) });
+            products.Add(new Productmodel { Proid = 3, Proname = "Milk", Qty = 15, Mfgdate = new DateTime(2020, 5, 3) });
+
+
+        }
+        // GET: Products
+        public ActionResult Index()
+        {
+            return View(products);
+        }
+
+
+        public ActionResult Details(int id)
+        {
+            Productmodel foundData = products.Find(product => product.Proid == id);
+            return View(foundData);
+        }
+        
+    }
+}
+
+
+==================================
+
+Member controller
+----------------
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using October_6.Models;
+
+namespace October_6.Controllers
+{
+    public class MemberController : Controller
+    {
+
+        static List<Member> MemberList = new List<Member>();
+        static MemberController()
+        {
+            MemberList.Add(new Member { MemberId = 1, MemberName = "ram", AccOpenDate = new DateTime(2021, 08, 13) });
+
+            MemberList.Add(new Member { MemberId = 2, MemberName = "prem", AccOpenDate = new DateTime(2022, 05, 13) });
+            MemberList.Add(new Member { MemberId = 3, MemberName = "suraj", AccOpenDate = new DateTime(2021, 06, 23) });
+        }
+
+        // GET: Member
+        public ActionResult Index()
+        {
+            ViewBag.msg = "List Of Members";
+            return View(MemberList);
+        }
+    }
+}
+
+--------------------------------------------------------------------------------
+
+
+
+model view
+-----------
+
+
+
+
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+
+namespace October_6.Models
+{
+    public class Productmodel
+    {
+        [Required()]
+        public int Proid { get; set; }
+
+        [MaxLength(20, ErrorMessage = "Name cannot be greater than 20 characters")]
+        [MinLength(3, ErrorMessage = "Name cannot be less than 3 character")]
+        public string Proname { get; set; }
+
+        public int Qty { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
+        public DateTime Mfgdate
+        {
+            get;
+            set;
+        }
+
+    }
+}
+=====================================================
+
+
+
